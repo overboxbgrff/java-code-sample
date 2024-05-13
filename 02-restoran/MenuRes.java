@@ -9,7 +9,7 @@ public class MenuRes {
             "Mie Ayam",
             "Soto Betawi"
     };
-    public static int[] hargamakan = {
+    public static Integer[] hargamakan = {
             20000,
             22000,
             15000,
@@ -22,7 +22,8 @@ public class MenuRes {
             "Es Teh",
             "Kopi Panas"
     };
-    public static int[] hargaminum = {
+
+    public static Integer[] hargaminum = {
             5000,
             7000,
             5000,
