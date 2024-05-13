@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
     //Variable
     static MenuRes menures = new MenuRes();
-
+    public static addArray addArray = new addArray();
 
     //variable pesan
     static String pesanchar = "";
@@ -35,13 +35,13 @@ public class Main {
 
 
     public static void main(String[] args) {
+        //menyatukan array makanan dan minuman beserta harganya
         try {
             allmenu();
-        } catch (ArrayStoreException e){
+        } catch (ArrayStoreException e) {
             System.out.println(e);
         }
-
-        main_menu();
+        main_menu(); //inisialisasi tampilan main menu.
     }
 
     public static void main_menu() {
@@ -68,6 +68,10 @@ public class Main {
                 System.out.println(".....................................................");
                 System.out.println("Restoran Wawan - Pemesanan Makanan");
                 System.out.println(".....................................................");
+                tampilmenu();
+                System.out.println();
+                System.out.println("98. Pesan");
+                System.out.println("99. Keluar");
                 pesan();
                 break;
             case 3:
@@ -83,21 +87,6 @@ public class Main {
     }
 
     //Region "Pesan Menu"
-    public static Integer[] addmenu(int n, Integer arr[], int x) {
-        //menambahkan data ke array
-        List<Integer> arrlist = new ArrayList<Integer>(Arrays.asList(arraypesan));
-        arrlist.add(x);
-        arraypesan = arrlist.toArray(arraypesan);
-        return arraypesan;
-    }
-
-    public static Integer[] svjumlahmenu(int n, Integer arr[], int x) {
-        List<Integer> arrList = new ArrayList<Integer>(Arrays.asList(jumlahpesan));
-        arrList.add(x);
-        jumlahpesan = arrList.toArray(jumlahpesan);
-        return jumlahpesan;
-    }
-
     public static void tampilmenu() {
         //print makanan
         System.out.println("Makanan:");
@@ -138,10 +127,7 @@ public class Main {
     }
 
     public static void pesan() {
-        tampilmenu();
-        System.out.println();
-        System.out.println("98. Pesan");
-        System.out.println("99. Keluar");
+
         int jumlahmenu = arraypesan.length + 1;
         Scanner inputmakan = new Scanner(System.in);
         Scanner inputjumlah = new Scanner(System.in);
@@ -151,11 +137,11 @@ public class Main {
 
         try {
             if (Integer.parseInt(pesanchar) <= listmenuall.length) {
-                arraypesan = addmenu(arraypesan.length, arraypesan, Integer.parseInt(pesanchar) - 1);
+                arraypesan = addArray.addmenu(arraypesan.length, arraypesan, Integer.parseInt(pesanchar) - 1);
                 System.out.print("Mau berapa porsi? : ");
                 pesanjumlah = inputjumlah.nextInt();
                 System.out.println();
-                jumlahpesan = svjumlahmenu(jumlahpesan.length, jumlahpesan, pesanjumlah);
+                jumlahpesan = addArray.svjumlahmenu(jumlahpesan.length, jumlahpesan, pesanjumlah);
                 pesan();
 
                 //hanya kepentingan testing!!
@@ -179,11 +165,11 @@ public class Main {
             if (Arrays.asList(listmenuall).contains(pesanchar)) {
                 for (int sweep = 0; sweep < listmenuall.length - 1; sweep++) {
                     if (pesanchar.equals(listmenuall[sweep])) {
-                        arraypesan = addmenu(arraypesan.length, arraypesan, sweep);
+                        arraypesan = addArray.addmenu(arraypesan.length, arraypesan, sweep);
                         System.out.print("Mau berapa porsi/sajian? : ");
                         pesanjumlah = inputjumlah.nextInt();
                         System.out.println();
-                        jumlahpesan = svjumlahmenu(jumlahpesan.length, jumlahpesan, pesanjumlah);
+                        jumlahpesan = addArray.svjumlahmenu(jumlahpesan.length, jumlahpesan, pesanjumlah);
                         pesan();
 
                         //hanya kepentingan testing!!
@@ -209,6 +195,7 @@ public class Main {
     }
 
     public static void cetakstruk() {
+
         int i = 0;
         int totalsemuatemp = 0;
         int swminum = 0, hminum = 0;
@@ -232,7 +219,11 @@ public class Main {
             Scanner inminum = new Scanner(System.in);
             swminum = inminum.nextInt();
         }
-        System.out.println();
+        clearscreen();
+
+        System.out.println(".....................................................");
+        System.out.println("Restoran Wawan - Struk Pemesanan");
+        System.out.println(".....................................................");
         do {
             System.out.println(listmenuall[arraypesan[i]] + "........."
                     + jumlahpesan[i] + " Porsi/Sajian");
@@ -257,7 +248,7 @@ public class Main {
         biaya_pel = 5 * init_total / 100;
 
         System.out.println();
-        System.out.println("================================================");
+        System.out.println(".....................................................");
 
         System.out.println("Total Harga : Rp. " + totalawal);
         if (init_total > 100000) {
@@ -306,7 +297,7 @@ public class Main {
     }
 
     public static void tambahmenu() {
-        String menu = "", jenismenu = "", confirm="";
+        String menu = "", jenismenu = "", confirm = "";
         int hargamenu = 0;
         Scanner smenu = new Scanner(System.in),
                 sjenismenu = new Scanner(System.in),
@@ -322,58 +313,26 @@ public class Main {
         System.out.print("Apakah anda yakin? (Y/N): ");
         confirm = sconfirm.nextLine();
         System.out.println("OK, Menu akan ditambahkan...");
-        if (confirm.equals("Y")||confirm.equals("y")||confirm.equals("ya")||confirm.equals("yes")){
-            if (jenismenu.contains("makan")||jenismenu.contains("makanan")){
-                menures.makanan = addmakan_man(menures.makanan.length, menures.makanan, menu);
-                menures.hargamakan = addhmakan_man(menures.hargamakan.length, menures.hargamakan, hargamenu);
+        if (confirm.equals("Y") || confirm.equals("y") || confirm.equals("ya") || confirm.equals("yes")) {
+            if (jenismenu.contains("makan") || jenismenu.contains("makanan")) {
+                menures.makanan = addArray.addmakan_man(menures.makanan.length, menures.makanan, menu);
+                menures.hargamakan = addArray.addhmakan_man(menures.hargamakan.length, menures.hargamakan, hargamenu);
                 System.out.println("Selesai");
                 System.out.println();
                 manajemen();
-            }else if (jenismenu.contains("minum")||jenismenu.contains("minuman")){
-                menures.minuman = addmakan_man(menures.minuman.length, menures.minuman, menu);
-                menures.hargaminum = addhmakan_man(menures.hargaminum.length, menures.hargaminum, hargamenu);
+            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman")) {
+                menures.minuman = addArray.addmakan_man(menures.minuman.length, menures.minuman, menu);
+                menures.hargaminum = addArray.addhmakan_man(menures.hargaminum.length, menures.hargaminum, hargamenu);
                 System.out.println("Selesai");
                 System.out.println();
                 manajemen();
             }
-        } else if (confirm.equals("N")||confirm.equals("n")||confirm.equals("no")){
+        } else if (confirm.equals("N") || confirm.equals("n") || confirm.equals("no")) {
             System.out.println("Ok...kembali ke menu utama manajemen...");
             System.out.println();
             manajemen();
         }
 
-    }
-
-    public static String[] addmakan_man(int n, String arr[], String x) {
-        //menambahkan data ke array
-        List<String> arrlist = new ArrayList<String>(Arrays.asList(menures.makanan));
-        arrlist.add(x);
-        menures.makanan = arrlist.toArray(menures.makanan);
-        return menures.makanan;
-    }
-
-    public static Integer[] addhmakan_man(int n, Integer arr[], int x) {
-        //menambahkan data ke array
-        List<Integer> arrlist = new ArrayList<Integer>(Arrays.asList(menures.hargamakan));
-        arrlist.add(x);
-        menures.hargamakan = arrlist.toArray(menures.hargamakan);
-        return menures.hargamakan;
-    }
-
-    public static String[] addminum_man(int n, String arr[], String x) {
-        //menambahkan data ke array
-        List<String> arrlist = new ArrayList<String>(Arrays.asList(menures.minuman));
-        arrlist.add(x);
-        menures.minuman = arrlist.toArray(menures.minuman);
-        return menures.minuman;
-    }
-
-    public static Integer[] addhminum_man(int n, int arr[], int x) {
-        //menambahkan data ke array
-        List<Integer> arrlist = new ArrayList<Integer>(Arrays.asList(menures.hargaminum));
-        arrlist.add(x);
-        menures.hargaminum = arrlist.toArray(menures.hargaminum);
-        return menures.hargaminum;
     }
 
     public static void editmenu() {
