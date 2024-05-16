@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.*;
 
 public class addArray {
     static MenuRes menures = new MenuRes();
@@ -51,6 +52,34 @@ public class addArray {
         arrlist.add(x);
         menures.hargaminum = arrlist.toArray(menures.hargaminum);
         return menures.hargaminum;
+    }
+
+    public static String[] hapusmenu(String arr[], int x){
+        if (arr == null || x<0 || x>= arr.length){
+            return arr;
+        }
+        String[] anotherArray = new String[arr.length - 1];
+        for (int i = 0, k = 0; i < arr.length; i++) {
+            if (i == x) {
+                continue;
+            }
+            anotherArray[k++] = arr[i];
+        }
+        return anotherArray;
+    }
+
+    public static Integer[] hapushmenu(Integer arr[], int x){
+        if (arr == null || x<0 || x>= arr.length){
+            return arr;
+        }
+        Integer[] anotherArray = new Integer[arr.length - 1];
+        for (int i = 0, k = 0; i < arr.length; i++) {
+            if (i == x) {
+                continue;
+            }
+            anotherArray[k++] = arr[i];
+        }
+        return anotherArray;
     }
 
 }
