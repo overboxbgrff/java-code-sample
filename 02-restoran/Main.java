@@ -2,13 +2,11 @@
 Author : Danang Priyombodo
 */
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    //Variable
+    //Inisiasi Class lain
     static MenuRes menures = new MenuRes();
     public static addArray addArray = new addArray();
 
@@ -25,8 +23,6 @@ public class Main {
     //variable menu
     static String[] listmenuall; // untuk list semua menu
     static int[] listhargaall; //untuk list semua harga menu
-
-    //Variable bagian manajemen
 
     public static void main(String[] args) {
         //menyatukan array makanan dan minuman beserta harganya
@@ -164,12 +160,8 @@ public class Main {
                 jumlahpesan = addArray.svjumlahmenu(jumlahpesan.length, jumlahpesan, pesanjumlah);
                 pesan();
 
-                //hanya kepentingan testing!!
-                //System.out.println(Arrays.toString(jumlahpesan));
-                //System.out.println(Arrays.toString(arraypesan));
-                //System.out.println(listmenuall[Integer.parseInt(pesanchar) - 1]);
             } else if (Integer.parseInt(pesanchar) == 98) {
-                //pesan
+                //Cetak Struk dari pemesanan
                 cetakstruk();
             } else if (Integer.parseInt(pesanchar) == 99) {
                 //Keluar
@@ -191,12 +183,6 @@ public class Main {
                         System.out.println();
                         jumlahpesan = addArray.svjumlahmenu(jumlahpesan.length, jumlahpesan, pesanjumlah);
                         pesan();
-
-                        //hanya kepentingan testing!!
-                        //System.out.println(pesanchar + " ada di elemen" + sweep);
-                        //System.out.println(Arrays.toString(arraypesan));
-                        //System.out.println(Arrays.toString(jumlahpesan));
-                        //System.out.println(listmenuall[sweep]);
                     }
                 }
             } else if (pesanchar.equals("exit") || pesanchar.equals("keluar")) {
@@ -343,15 +329,17 @@ public class Main {
         confirm = sconfirm.nextLine();
         System.out.println("OK, Menu akan ditambahkan...");
         if (confirm.equals("Y") || confirm.equals("y") || confirm.equals("ya") || confirm.equals("yes")) {
-            if (jenismenu.contains("makan") || jenismenu.contains("makanan")) {
+            if (jenismenu.contains("makan") || jenismenu.contains("makanan") ||
+                    jenismenu.contains("Makanan") || jenismenu.contains("MAKANAN")) {
                 menures.makanan = addArray.addmakan_man(menures.makanan.length, menures.makanan, menu);
                 menures.hargamakan = addArray.addhmakan_man(menures.hargamakan.length, menures.hargamakan, hargamenu);
                 System.out.println("Selesai");
                 System.out.println();
                 manajemen();
-            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman")) {
-                menures.minuman = addArray.addmakan_man(menures.minuman.length, menures.minuman, menu);
-                menures.hargaminum = addArray.addhmakan_man(menures.hargaminum.length, menures.hargaminum, hargamenu);
+            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman") ||
+                    jenismenu.contains("Minuman") || jenismenu.contains("MINUMAN")) {
+                menures.minuman = addArray.addminum_man(menures.minuman.length, menures.minuman, menu);
+                menures.hargaminum = addArray.addhminum_man(menures.hargaminum.length, menures.hargaminum, hargamenu);
                 System.out.println("Selesai");
                 System.out.println();
                 manajemen();
@@ -361,7 +349,6 @@ public class Main {
             System.out.println();
             manajemen();
         }
-
     }
 
     public static void editmenu() {
@@ -383,7 +370,8 @@ public class Main {
         System.out.print("OK, Harga menu akan diubah...");
 
         if (confirm.equals("Y") || confirm.equals("y") || confirm.equals("ya") || confirm.equals("yes")) {
-            if (jenismenu.contains("makan") || jenismenu.contains("makanan") || jenismenu.contains("Makanan")) {
+            if (jenismenu.contains("makan") || jenismenu.contains("makanan") ||
+                    jenismenu.contains("Makanan") || jenismenu.contains("MAKANAN")) {
                 try {
                     if (Integer.parseInt(menu) <= menures.makanan.length) {
                         menures.hargamakan[Integer.parseInt(menu)-1] = hargamenu;
@@ -407,7 +395,8 @@ public class Main {
                         hapusmenu();
                     }
                 }
-            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman")) {
+            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman") ||
+                    jenismenu.contains("Minuman") || jenismenu.contains("MINUMAN")) {
                 try {
                     if (Integer.parseInt(menu) <= menures.minuman.length) {
                         menures.hargaminum[Integer.parseInt(menu)-1] = hargamenu;
@@ -437,8 +426,6 @@ public class Main {
             System.out.println();
             manajemen();
         }
-
-        manajemen();
     }
 
     public static void hapusmenu() {
@@ -459,7 +446,8 @@ public class Main {
 
         System.out.print("OK, Menu akan dihapus...");
         if (confirm.equals("Y") || confirm.equals("y") || confirm.equals("ya") || confirm.equals("yes")) {
-            if (jenismenu.contains("makan") || jenismenu.contains("makanan") || jenismenu.contains("Makanan")) {
+            if (jenismenu.contains("makan") || jenismenu.contains("makanan") ||
+                    jenismenu.contains("Makanan") || jenismenu.contains("MAKANAN")) {
                 try {
                     if (Integer.parseInt(menu) <= menures.makanan.length) {
                         menures.hargamakan = addArray.hapushmenu(menures.hargamakan, Integer.parseInt(menu) - 1);
@@ -485,7 +473,8 @@ public class Main {
                         hapusmenu();
                     }
                 }
-            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman")) {
+            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman") ||
+                    jenismenu.contains("Minuman") || jenismenu.contains("MINUMAN")) {
                 try {
                     if (Integer.parseInt(menu) <= menures.minuman.length) {
                         menures.hargaminum= addArray.hapushmenu(menures.hargaminum, Integer.parseInt(menu) - 1);

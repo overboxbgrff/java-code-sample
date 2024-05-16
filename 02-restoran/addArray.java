@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.*;
 
 public class addArray {
     static MenuRes menures = new MenuRes();
@@ -46,7 +45,7 @@ public class addArray {
         return menures.minuman;
     }
 
-    public static Integer[] addhminum_man(int n, int arr[], int x) {
+    public static Integer[] addhminum_man(int n, Integer[] arr, int x) {
         //menambahkan data ke array
         List<Integer> arrlist = new ArrayList<Integer>(Arrays.asList(menures.hargaminum));
         arrlist.add(x);
