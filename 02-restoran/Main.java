@@ -19,8 +19,6 @@ public class Main {
     static Integer[] jumlahpesan = {};
     static int diskon, biaya_res, biaya_pel;
 
-
-
     static int totalawal = 0;
     static int finaltotal = 0;
 
@@ -29,7 +27,6 @@ public class Main {
     static int[] listhargaall; //untuk list semua harga menu
 
     //Variable bagian manajemen
-
 
     public static void main(String[] args) {
         //menyatukan array makanan dan minuman beserta harganya
@@ -55,20 +52,11 @@ public class Main {
         switch (pick_menu) {
             case 1:
                 clearscreen();
-                System.out.println(".....................................................");
-                System.out.println("Restoran Wawan - Manajemen Menu");
-                System.out.println(".....................................................");
                 manajemen();
                 break;
             case 2:
                 clearscreen();
-                System.out.println(".....................................................");
-                System.out.println("Restoran Wawan - Pemesanan Makanan");
-                System.out.println(".....................................................");
-                tampilmenu();
-                System.out.println();
-                System.out.println("98. Pesan");
-                System.out.println("99. Keluar");
+                tampilmenupesan();
                 pesan();
                 break;
             case 3:
@@ -97,10 +85,35 @@ public class Main {
         System.out.println("Minuman");
         for (int minum = 0; minum < menures.minuman.length; minum++) {
             System.out.print("\t");
+            System.out.println(1 + minum + ") " +
+                    menures.minuman[minum] + " ..... Rp. " +
+                    menures.hargaminum[minum]);
+        }
+    }
+
+    public static void tampilmenupesan (){
+        System.out.println(".....................................................");
+        System.out.println("Restoran Wawan - Pemesanan Makanan");
+        System.out.println(".....................................................");
+        System.out.println();
+        System.out.println("Makanan:");
+        for (int makan = 0; makan < menures.makanan.length; makan++) {
+            System.out.print("\t");
+            System.out.println(1 + makan + ") " +
+                    menures.makanan[makan] + " ..... Rp. " +
+                    menures.hargamakan[makan]);
+        }
+        //print minuman
+        System.out.println("Minuman");
+        for (int minum = 0; minum < menures.minuman.length; minum++) {
+            System.out.print("\t");
             System.out.println(menures.makanan.length + 1 + minum + ") " +
                     menures.minuman[minum] + " ..... Rp. " +
                     menures.hargaminum[minum]);
         }
+        System.out.println();
+        System.out.println("98. Pesan");
+        System.out.println("99. Keluar");
     }
 
     public static void allmenu() {
@@ -268,7 +281,13 @@ public class Main {
         System.out.println("Pajak Restoran (10%): Rp. " + biaya_res);
         System.out.println("Biaya Pelayanan (5%): Rp. " + biaya_pel);
         System.out.println("Total Keseluruhan : Rp. " + finaltotal);
-
+        System.out.println();
+        System.out.println("Terima Kasih dan Selamat Datang Kembali!");
+        clearscreen();
+        arraypesan = new Integer[0];
+        jumlahpesan = new Integer[0];
+        tampilmenupesan();
+        pesan();
     }
     //End Region
 
@@ -276,6 +295,9 @@ public class Main {
     public static void manajemen() {
         int sman_menu = 0;
         Scanner man_mainmenu = new Scanner(System.in);
+        System.out.println(".....................................................");
+        System.out.println("Restoran Wawan - Manajemen Menu");
+        System.out.println(".....................................................");
         tampilmenu();
         System.out.println();
         System.out.println(".....................................................");
@@ -292,7 +314,7 @@ public class Main {
                 tambahmenu();
                 break;
             case 2:
-                //editmenu();
+                editmenu();
                 break;
             case 3:
                 hapusmenu();
@@ -343,15 +365,78 @@ public class Main {
     }
 
     public static void editmenu() {
-        System.out.println("Menu apa yang ingin di ubah harganya?: ");
+        String menu = "", jenismenu = "", confirm = "";
+        int hargamenu = 0;
+        Scanner smenu = new Scanner(System.in),
+                sjenismenu = new Scanner(System.in),
+                shargamenu = new Scanner(System.in),
+                sconfirm = new Scanner(System.in);
 
-        System.out.println("Makanan / Minuman?: ");
+        System.out.print("Menu apa yang ingin di ubah harganya?: ");
+        menu = smenu.nextLine();
+        System.out.print("Makanan / Minuman?: ");
+        jenismenu = sjenismenu.nextLine();
+        System.out.print("Harga barunya?: ");
+        hargamenu = shargamenu.nextInt();
+        System.out.print("Apakah anda yakin? (Y/N): ");
+        confirm = sconfirm.nextLine();
+        System.out.print("OK, Harga menu akan diubah...");
 
-        System.out.println("Harga barunya?: ");
-
-        System.out.println("Apakah anda yakin? (Y/N): ");
-
-        System.out.println("OK, Harga menu akan diubah...");
+        if (confirm.equals("Y") || confirm.equals("y") || confirm.equals("ya") || confirm.equals("yes")) {
+            if (jenismenu.contains("makan") || jenismenu.contains("makanan") || jenismenu.contains("Makanan")) {
+                try {
+                    if (Integer.parseInt(menu) <= menures.makanan.length) {
+                        menures.hargamakan[Integer.parseInt(menu)-1] = hargamenu;
+                        System.out.println("Berhasil!");
+                        manajemen();
+                    } else {
+                        System.out.println("Menu Tidak dikenali");
+                        hapusmenu();
+                    }
+                } catch (NumberFormatException e) {
+                    if (Arrays.asList(menures.makanan).contains(menu)) {
+                        for (int sweep = 0; sweep < menures.makanan.length - 1; sweep++) {
+                            if (menu.equals(menures.makanan[sweep])) {
+                                menures.hargamakan[sweep] = hargamenu;
+                                System.out.println("Berhasil!");
+                                manajemen();
+                            }
+                        }
+                    } else {
+                        System.out.println("Menu Tidak dikenali");
+                        hapusmenu();
+                    }
+                }
+            } else if (jenismenu.contains("minum") || jenismenu.contains("minuman")) {
+                try {
+                    if (Integer.parseInt(menu) <= menures.minuman.length) {
+                        menures.hargaminum[Integer.parseInt(menu)-1] = hargamenu;
+                        System.out.println("Berhasil!");
+                        manajemen();
+                    } else {
+                        System.out.println("Menu Tidak dikenali");
+                        hapusmenu();
+                    }
+                } catch (NumberFormatException e) {
+                    if (Arrays.asList(menures.minuman).contains(menu)) {
+                        for (int sweep = 0; sweep < menures.minuman.length - 1; sweep++) {
+                            if (menu.equals(menures.minuman[sweep])) {
+                                menures.hargaminum[sweep] = hargamenu;
+                                System.out.println("Berhasil!");
+                                manajemen();
+                            }
+                        }
+                    } else {
+                        System.out.println("Menu Tidak dikenali");
+                        hapusmenu();
+                    }
+                }
+            }
+        } else if (confirm.equals("N") || confirm.equals("n") || confirm.equals("no")) {
+            System.out.println("Ok...kembali ke menu utama manajemen...");
+            System.out.println();
+            manajemen();
+        }
 
         manajemen();
     }
@@ -374,11 +459,13 @@ public class Main {
 
         System.out.print("OK, Menu akan dihapus...");
         if (confirm.equals("Y") || confirm.equals("y") || confirm.equals("ya") || confirm.equals("yes")) {
-            if (jenismenu.contains("makan") || jenismenu.contains("makanan")) {
+            if (jenismenu.contains("makan") || jenismenu.contains("makanan") || jenismenu.contains("Makanan")) {
                 try {
                     if (Integer.parseInt(menu) <= menures.makanan.length) {
                         menures.hargamakan = addArray.hapushmenu(menures.hargamakan, Integer.parseInt(menu) - 1);
                         menures.makanan = addArray.hapusmenu(menures.makanan, Integer.parseInt(menu) - 1);
+                        System.out.println("Berhasil!");
+                        manajemen();
                     } else {
                         System.out.println("Menu Tidak dikenali");
                         hapusmenu();
@@ -389,6 +476,8 @@ public class Main {
                             if (menu.equals(menures.makanan[sweep])) {
                                 menures.hargamakan = addArray.hapushmenu(menures.hargamakan, Integer.parseInt(menu) - 1);
                                 menures.makanan = addArray.hapusmenu(menures.makanan, Integer.parseInt(menu) - 1);
+                                System.out.println("Berhasil!");
+                                manajemen();
                             }
                         }
                     } else {
@@ -401,6 +490,8 @@ public class Main {
                     if (Integer.parseInt(menu) <= menures.minuman.length) {
                         menures.hargaminum= addArray.hapushmenu(menures.hargaminum, Integer.parseInt(menu) - 1);
                         menures.minuman = addArray.hapusmenu(menures.minuman, Integer.parseInt(menu) - 1);
+                        System.out.println("Berhasil!");
+                        manajemen();
                     } else {
                         System.out.println("Menu Tidak dikenali");
                         hapusmenu();
@@ -411,6 +502,8 @@ public class Main {
                             if (menu.equals(menures.minuman[sweep])) {
                                 menures.hargaminum = addArray.hapushmenu(menures.hargaminum, Integer.parseInt(menu) - 1);
                                 menures.minuman = addArray.hapusmenu(menures.minuman, Integer.parseInt(menu) - 1);
+                                System.out.println("Berhasil!");
+                                manajemen();
                             }
                         }
                     } else {
@@ -425,9 +518,6 @@ public class Main {
             manajemen();
         }
 
-        //menures.hargamakan = addArray.hapushmakan(menures.hargamakan,2);
-        //menures.makanan = addArray.hapusmakan(menures.makanan,2);
-        manajemen();
     }
 //End Region
 }
