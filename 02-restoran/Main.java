@@ -384,7 +384,7 @@ public class Main {
                 } catch (NumberFormatException e) {
                     if (Arrays.asList(menures.makanan).contains(menu)) {
                         for (int sweep = 0; sweep < menures.makanan.length - 1; sweep++) {
-                            if (menu.equals(menures.makanan[sweep])) {
+                            if (menu.contains(menures.makanan[sweep])) {
                                 menures.hargamakan[sweep] = hargamenu;
                                 System.out.println("Berhasil!");
                                 manajemen();
@@ -392,7 +392,7 @@ public class Main {
                         }
                     } else {
                         System.out.println("Menu Tidak dikenali");
-                        hapusmenu();
+                        manajemen();
                     }
                 }
             } else if (jenismenu.contains("minum") || jenismenu.contains("minuman") ||
@@ -404,12 +404,12 @@ public class Main {
                         manajemen();
                     } else {
                         System.out.println("Menu Tidak dikenali");
-                        hapusmenu();
+                        manajemen();
                     }
                 } catch (NumberFormatException e) {
                     if (Arrays.asList(menures.minuman).contains(menu)) {
                         for (int sweep = 0; sweep < menures.minuman.length - 1; sweep++) {
-                            if (menu.equals(menures.minuman[sweep])) {
+                            if (menu.contains(menures.minuman[sweep])) {
                                 menures.hargaminum[sweep] = hargamenu;
                                 System.out.println("Berhasil!");
                                 manajemen();
