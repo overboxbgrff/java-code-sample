@@ -6,7 +6,7 @@ public class main {
         menu menures = new menu();
         pesanan pesanpel = new pesanan();
 
-        int qua = 0;
+        // int qua = 0;
         int choice = 0;
 
         menures.tambahMenu(new makanan("Mie Ayam", 20000, "Makanan Utama"));
@@ -14,9 +14,12 @@ public class main {
         menures.tambahMenu(new diskon("Promo 1", 0, 10000));
 
         do {
+            //tampilkan daftar menu 
+            menures.tampilMenuRes();
+            System.out.println();
             System.out.println("++++++++++ Main Menu ++++++++++");
             System.out.println("1. Tambah Item Menu");
-            System.out.println("2. Tampilkan Daftar Menu");
+            System.out.println("2. Simpan Daftar Menu");
             System.out.println("3. Pesan Menu");
             System.out.println("4. Hitung Total Biaya Pesanan");
             System.out.println("5. Tampilkan Struk Pesanan");
@@ -30,6 +33,7 @@ public class main {
                 choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
+                        // Tambah menu
                         System.out.print("Nama item: ");
                         scanner.nextLine();
                         String namaItem = scanner.nextLine();
@@ -61,11 +65,16 @@ public class main {
                         System.out.println();
                         break;
                     case 2:
-                        menures.tampilMenuRes();
+                        // tampil daftar menu
+                        //menures.tampilMenuRes();
+                        System.out.print("Masukkan path untuk menyimpan struk (termasuk nama file): ");
+                        scanner.nextLine();
+                        String pathexport = scanner.nextLine();
+                        IOFile.simpanmenu(pathexport, menures);
                         System.out.println();
                         break;
                     case 3:
-                        //Pesan Menu
+                        // Pesan Menu
                         System.out.print("Masukkan nama item yang ingin dipesan: ");
                         scanner.nextLine();
                         String itemPesan = scanner.nextLine();
@@ -84,32 +93,35 @@ public class main {
                         System.out.println();
                         break;
                     case 4:
+                        // Hitung total biaya pesanan
                         double totalBiaya = pesanpel.hitungtotal();
                         System.out.println("Total Biaya Pesanan: Rp" + totalBiaya);
                         System.out.println();
                         break;
                     case 5:
+                        //menampilkan struk pemesanan makanan
                         pesanpel.cetakStruk();
                         System.out.println();
                         break;
                     case 6:
+                        // Cetak Struk ke file atau save struk sebagai file
                         System.out.print("Masukkan path untuk menyimpan struk (termasuk nama file): ");
-                        scanner.nextLine(); // Membersihkan buffer
+                        scanner.nextLine();
                         String pathStruk = scanner.nextLine();
                         IOFile.exportstruk(pathStruk, pesanpel);
-                        System.out.println("Struk berhasil disimpan di " + pathStruk);
                         System.out.println();
                         break;
                     case 7:
+                        // Import daftar menu dari file
                         System.out.print("Masukkan path file untuk mengimport daftar menu: ");
-                        scanner.nextLine(); // Membersihkan buffer
+                        scanner.nextLine();
                         String pathMenu = scanner.nextLine();
                         menu menuImport = IOFile.loadmenu(pathMenu);
                         if (menuImport != null) {
                             menures = menuImport;
-                            System.out.println("Daftar menu berhasil diimport dari " + pathMenu);
+                            //System.out.println("Daftar menu berhasil diimport dari " + pathMenu);
                         } else {
-                            System.out.println("Gagal mengimport daftar menu dari " + pathMenu);
+                            //System.out.println("Gagal mengimport daftar menu dari " + pathMenu);
                         }
                         System.out.println();
                         break;
