@@ -1,5 +1,0 @@
-Makanan | Batagor | 15000 | Makanan Ringan,
-Makanan | Mi Ayam Bakso | 25000 | Makanan Utama,
-Makanan | Stik Kentang | 12000 | Makanan Ringan,
-Minuman | Es Teh Lemon | 10000 | Teh,
-Minuman | Es Teh Leci | 10000 | Teh
