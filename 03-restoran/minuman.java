@@ -6,6 +6,7 @@ public class minuman extends menuitem {
         this.jenisMinuman = jenisMinuman;
     }
 
+    //Metode tampilmenu (menuitem) untuk minuman
     @Override
     public void tampilMenu(){
         System.out.println(nama + " ("+jenisMinuman+") - Rp. "+ harga);

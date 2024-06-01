@@ -6,6 +6,7 @@ public class diskon extends menuitem {
         this.diskon = diskon;
     }
 
+    //Metode tampilmenu (menuitem) untuk diskon
     @Override
     public void tampilMenu() {
         System.out.println(nama + " - Diskon Rp. " + diskon);
